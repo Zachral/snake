@@ -18,7 +18,6 @@
 
 #define min(X,Y) ((X) < (Y) ? (X) : (Y))
 #define max(X,Y) ((X) > (Y) ? (X) : (Y))
-// Hej
 
 //// https://wokwi.com/projects/296234816685212169
 
@@ -49,18 +48,18 @@ int main()
 			y = max(y - 1, 0);
 			printf("y:%d\n", y);
 		}
-		if (horz > 700) {
+		if (horz < 700) {
 			x = min(x + 1, maxX);
 			printf("x:%d\n", x);
 		}
-		if (horz < 300) {
+		if (horz > 300) {
 			x = max(x - 1, 0);
 			printf("x:%d\n", x);
 		}
 		if (BUTTON_IS_CLICKED(PIND,SEL_PIN)) {
 			printf("CLICK\n");
 		}
-		//Turns the wrong direktion. 
+		//Moves the snake
 		max7219b_set(x, y);
 		max7219b_out();
 		_delay_ms(100);
