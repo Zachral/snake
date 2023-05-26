@@ -33,19 +33,23 @@ int main()
 	max7219_init();
 	int x = 0;
 	int y = 0;
-	
+	int lastX = 0; 
+	int lastY = 0;
+
 	while (1) {
 		int horz = analogRead(HORZ_PIN);
   		int vert = analogRead(VERT_PIN);
+		max7219b_clr(lastX, lastY);
 		x = joystickXAxis(horz, x); 
 		y = joystickYAxis(vert, y); 
-
 
 
 	 	//plots the snake on led-matrix
 		max7219b_set(x, y);
 		max7219b_out();
 		_delay_ms(100);
+		lastX = x;
+		lastY = y; 
 
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
