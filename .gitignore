@@ -9,3 +9,5 @@ bin/debug/millis.d
 bin/debug/millis.o
 bin/debug/uart.d
 bin/debug/uart.o
+bin/debug/joystick.d
+bin/debug/joystick.o
