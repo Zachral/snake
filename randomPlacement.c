@@ -1,3 +1,5 @@
+#include <time.h>
+#include <stdlib.h>
 
 int randomPlacementX(){
     return (rand() % 8)  + 1;

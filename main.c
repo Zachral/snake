@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <util/delay.h>
+#include <time.h>
+#include <stdlib.h>
 #include "uart.h"
 #include "randomPlacement.h"
 
@@ -32,16 +34,16 @@ int main()
 
 	init_serial();
 	max7219_init();
-	int x = 0;
-	int y = 0;
+	srand(time(NULL)); 
+	int x = randomPlacementX();
+	int y = randomPlacementY();
 	int lastX = 0; 
 	int lastY = 0;
 	//setting a random start position
-	int randomX = randomPlacementX();
-	printf(randomX);
-	int randomY = randomPlacementY();
-	printf(randomY); 
-	max7219b_set(randomX, randomY); 
+
+	printf("x = %d\n", x);
+	printf("y = %d", y); 
+	max7219b_set(x, y); 
 	max7219b_out();
 
 
