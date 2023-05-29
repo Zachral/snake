@@ -5,6 +5,7 @@
 #include <string.h>
 #include <util/delay.h>
 #include "uart.h"
+#include "randomPlacement.h"
 
 #define VERT_PIN 0
 #define HORZ_PIN 1
@@ -35,6 +36,14 @@ int main()
 	int y = 0;
 	int lastX = 0; 
 	int lastY = 0;
+	//setting a random start position
+	int randomX = randomPlacementX();
+	printf(randomX);
+	int randomY = randomPlacementY();
+	printf(randomY); 
+	max7219b_set(randomX, randomY); 
+	max7219b_out();
+
 
 	while (1) {
 		int horz = analogRead(HORZ_PIN);

@@ -11,3 +11,5 @@ bin/debug/uart.d
 bin/debug/uart.o
 bin/debug/joystick.d
 bin/debug/joystick.o
+bin/debug/randomPlacement.d
+bin/debug/randomPlacement.o
