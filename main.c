@@ -20,6 +20,7 @@
 
 #define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
 
+
 //// https://wokwi.com/projects/296234816685212169
 
 
@@ -35,8 +36,8 @@ int main()
 	init_serial();
 	max7219_init();
 	srand(time(NULL)); 
-	int x = randomPlacementX();
-	int y = randomPlacementY();
+	int x = randomPlacement(X_AXIS_MAX);
+	int y = randomPlacement(Y_AXIS_MAX);
 	int lastX = 0; 
 	int lastY = 0;
 	//setting a random start position

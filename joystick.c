@@ -4,9 +4,8 @@
 #define max(X,Y) ((X) > (Y) ? (X) : (Y))
 
 int joystickXAxis(int horz, int x){
-	int maxX = 16;
 	if (horz < 700) {
-		x = min(x + 1, maxX);
+		x = min(x + 1, X_AXIS_MAX);
 	}
 	if (horz > 300) {
 		x = max(x - 1, 0);
@@ -17,7 +16,7 @@ int joystickXAxis(int horz, int x){
 int joystickYAxis(int vert, int y){
 	int maxY = 8;
     if (vert < 300) {
-		y = min(y + 1, maxY);
+		y = min(y + 1, Y_AXIS_MAX);
 	}
 	if (vert > 700) {
 		y = max(y - 1, 0);
