@@ -13,3 +13,5 @@ bin/debug/joystick.d
 bin/debug/joystick.o
 bin/debug/randomPlacement.d
 bin/debug/randomPlacement.o
+bin/debug/snakeMovement.d
+bin/debug/snakeMovement.o

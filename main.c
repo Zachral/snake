@@ -5,6 +5,7 @@
 #include <string.h>
 #include <util/delay.h>
 #include "uart.h"
+#include "snakeMovement.h"
 
 #define VERT_PIN 0
 #define HORZ_PIN 1
@@ -43,15 +44,17 @@ int main()
 		x = joystickXAxis(horz, x); 
 		y = joystickYAxis(vert, y); 
 
-
 	 	//plots the snake on led-matrix
-		max7219b_set(x, y);
+		max7219b_set(x, y); 
 		max7219b_out();
 		_delay_ms(100);
-		lastX = x;
-		lastY = y; 
-		printf("%d\n", x);
-		printf("%d", y)
+		max7219b_set(countiousMovementX(lastX, x), countiousMovementY(lastY, y));
+		max7219b_out();
+		if(lastX != x) lastX = x;
+		if(lastY != y) lastY = y; 
+		printf("x = %d\n", x);
+		printf("y =%d\n", y);
+
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
 		// 	printf("%d\n", i);
