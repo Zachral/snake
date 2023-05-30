@@ -50,7 +50,8 @@ int main()
 		_delay_ms(100);
 		lastX = x;
 		lastY = y; 
-
+		printf("%d\n", x);
+		printf("%d", y)
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
 		// 	printf("%d\n", i);
