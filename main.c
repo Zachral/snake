@@ -36,15 +36,24 @@ int main()
 	init_serial();
 	max7219_init();
 	srand(analogRead(SEL_PIN)); 
-	int x = randomPlacement(X_AXIS_MAX);
-	int y = randomPlacement(Y_AXIS_MAX);
+	int snakeX = randomPlacement(X_AXIS_MAX);
+	int snakeY = randomPlacement(Y_AXIS_MAX);
+	int foodX = randomPlacement(X_AXIS_MAX);
+	int foodY = randomPlacement(Y_AXIS_MAX);
+	while(snakeX == foodX && snakeY == foodY){
+		foodX = randomPlacement(X_AXIS_MAX);
+		foodY = randomPlacement(Y_AXIS_MAX);
+	}
 	int lastX = 0; 
 	int lastY = 0;
 	//setting a random start position
 
-	printf("x = %d\n", x);
-	printf("y = %d", y); 
-	max7219b_set(x, y); 
+	printf("x = %d\n", snakeX);
+	printf("y = %d\n", snakeY); 
+	printf("Food x = %d\n", foodX);
+	printf("Food y = %d\n", foodY); 
+	max7219b_set(snakeX, snakeY); 
+	max7219b_set(foodX, foodY); 
 	max7219b_out();
 
 
@@ -52,17 +61,23 @@ int main()
 		int horz = analogRead(HORZ_PIN);
   		int vert = analogRead(VERT_PIN);
 		max7219b_clr(lastX, lastY);
-		x = joystickXAxis(horz, x); 
-		y = joystickYAxis(vert, y); 
+		snakeX = joystickXAxis(horz, snakeX); 
+		snakeY = joystickYAxis(vert, snakeY); 
 
 
 	 	//plots the snake on led-matrix
-		max7219b_set(x, y);
+		max7219b_set(snakeX, snakeY);
 		max7219b_out();
 		_delay_ms(100);
-		lastX = x;
-		lastY = y; 
+		lastX = snakeX;
+		lastY = snakeY; 
 
+		while (snakeX == foodX && snakeY == foodY){
+		foodX = randomPlacement(X_AXIS_MAX);
+		foodY = randomPlacement(Y_AXIS_MAX);
+		max7219b_set(foodX, foodY); 
+		max7219b_out();
+		}
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
 		// 	printf("%d\n", i);
