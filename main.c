@@ -4,7 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <util/delay.h>
+#include <time.h>
+#include <stdlib.h>
 #include "uart.h"
+#include "randomPlacement.h"
 
 #define VERT_PIN 0
 #define HORZ_PIN 1
@@ -16,6 +19,7 @@
 #define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) 
 
 #define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
+
 
 //// https://wokwi.com/projects/296234816685212169
 
@@ -31,10 +35,18 @@ int main()
 
 	init_serial();
 	max7219_init();
-	int x = 0;
-	int y = 0;
+	srand(analogRead(SEL_PIN)); 
+	int x = randomPlacement(X_AXIS_MAX);
+	int y = randomPlacement(Y_AXIS_MAX);
 	int lastX = 0; 
 	int lastY = 0;
+	//setting a random start position
+
+	printf("x = %d\n", x);
+	printf("y = %d", y); 
+	max7219b_set(x, y); 
+	max7219b_out();
+
 
 	while (1) {
 		int horz = analogRead(HORZ_PIN);
