@@ -68,6 +68,12 @@ int main()
 		lastX = snakeX;
 		lastY = snakeY; 
 
+		if (snakeX == foodX && snakeY == foodY){
+			foodX = randomFoodPosition(snakeX, X_AXIS_MAX);
+			foodY = randomFoodPosition(snakeY, Y_AXIS_MAX);
+			max7219b_set(foodX, foodY); 
+			max7219b_out();
+		}
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
 		// 	printf("%d\n", i);
