@@ -38,13 +38,23 @@ int main()
 	srand(analogRead(SEL_PIN)); 
 	int x = randomPlacement(X_AXIS_MAX);
 	int y = randomPlacement(Y_AXIS_MAX);
+
+	int foodX = randomPlacement(X_AXIS_MAX);
+	while (foodX == x)
+		foodX = randomPlacement(X_AXIS_MAX); 
+	int foodY = randomPlacement(Y_AXIS_MAX);
+	while (foodY == y)
+		foodY = randomPlacement(Y_AXIS_MAX); 
 	int lastX = 0; 
 	int lastY = 0;
 	//setting a random start position
 
 	printf("x = %d\n", x);
-	printf("y = %d", y); 
+	printf("y = %d\n", y); 
+	printf("Food x = %d\n", foodX);
+	printf("Food y = %d\n", foodY); 
 	max7219b_set(x, y); 
+	max7219b_set(foodX, foodY); 
 	max7219b_out();
 
 
