@@ -38,8 +38,12 @@ int main()
 	srand(analogRead(SEL_PIN)); 
 	int snakeX = randomPlacement(X_AXIS_MAX);
 	int snakeY = randomPlacement(Y_AXIS_MAX);
-	int foodX = randomFoodPosition(snakeX, X_AXIS_MAX);
-	int foodY = randomFoodPosition(snakeY, Y_AXIS_MAX);
+	int foodX = randomPlacement(X_AXIS_MAX);
+	int foodY = randomPlacement(Y_AXIS_MAX);
+	while(snakeX == foodX && snakeY == foodY){
+		foodX = randomPlacement(X_AXIS_MAX);
+		foodY = randomPlacement(Y_AXIS_MAX);
+	}
 	int lastX = 0; 
 	int lastY = 0;
 	//setting a random start position
@@ -68,11 +72,11 @@ int main()
 		lastX = snakeX;
 		lastY = snakeY; 
 
-		if (snakeX == foodX && snakeY == foodY){
-			foodX = randomFoodPosition(snakeX, X_AXIS_MAX);
-			foodY = randomFoodPosition(snakeY, Y_AXIS_MAX);
-			max7219b_set(foodX, foodY); 
-			max7219b_out();
+		while (snakeX == foodX && snakeY == foodY){
+		foodX = randomPlacement(X_AXIS_MAX);
+		foodY = randomPlacement(Y_AXIS_MAX);
+		max7219b_set(foodX, foodY); 
+		max7219b_out();
 		}
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
