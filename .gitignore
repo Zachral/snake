@@ -16,3 +16,7 @@ bin/debug/randomPlacement.o
 main.c
 joystick.c
 joystick.h
+snake.hex
+snake.map
+bin/debug/snakeMovement.d
+bin/debug/snakeMovement.o

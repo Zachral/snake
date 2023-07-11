@@ -35,7 +35,7 @@ int main()
 
 	init_serial();
 	max7219_init();
-	srand(time(NULL)); 
+	srand(analogRead(SEL_PIN)); 
 	int x = randomPlacement(X_AXIS_MAX);
 	int y = randomPlacement(Y_AXIS_MAX);
 	int lastX = 0; 
