@@ -76,6 +76,10 @@ int main()
 		max7219b_out();
 		_delay_ms(100);
 		lastMove = snakeDirection(lastX, lastY, snakeX, snakeY, lastMove);
+		// if currentMove != lastMove
+			// initialize currentMove varible
+			// **Write logic for when snake moves direction**
+		// currentMove = lastMove; 	
 		printf("last move : %d\n", (int)lastMove);
 		if(snakeX == foodX && snakeY == foodY){
 			while (snakeX == foodX && snakeY == foodY){
