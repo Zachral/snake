@@ -45,8 +45,6 @@ int main()
 		foodX = randomPlacement(X_AXIS_MAX);
 		foodY = randomPlacement(Y_AXIS_MAX);
 	}
-	int lastX = snakeX; 
-	int lastY = snakeY;
 	int currentSnakeLenght = 0; 
 	movement lastMove; 
 
@@ -59,9 +57,16 @@ int main()
 
 
 	while (1) {
+		int lastX = snakeX; 
+		int lastY = snakeY;
+
+		if(lastMove == Snake_down) max7219b_clr(lastX, lastY-currentSnakeLenght-1);
+		else if(lastMove == Snake_Up) max7219b_clr(lastX, lastY+currentSnakeLenght+1);
+		else if(lastMove == Snake_right) max7219b_clr(lastX-currentSnakeLenght-1, lastY);
+		else if(lastMove == Snake_left) max7219b_clr(lastX+currentSnakeLenght+1, lastY);
+		
 		int horz = analogRead(HORZ_PIN);
   		int vert = analogRead(VERT_PIN);
-		max7219b_clr(lastX, lastY);
 		snakeX = joystickXAxis(horz, snakeX); 
 		snakeY = joystickYAxis(vert, snakeY); 
 
@@ -71,6 +76,7 @@ int main()
 		max7219b_out();
 		_delay_ms(100);
 		lastMove = snakeDirection(lastX, lastY, snakeX, snakeY, lastMove);
+		printf("last move : %d\n", (int)lastMove);
 		if(snakeX == foodX && snakeY == foodY){
 			while (snakeX == foodX && snakeY == foodY){
 			foodX = randomPlacement(X_AXIS_MAX);
@@ -80,19 +86,7 @@ int main()
 			max7219b_out();
 			currentSnakeLenght++; 
 		}
-		if(lastMove == Snake_down){
-			lastX = snakeX;
-			lastY = snakeY + currentSnakeLenght;
-		}else if(lastMove == Snake_Up){
-			lastX = snakeX;
-			lastY = snakeY - currentSnakeLenght;
-		}else if(lastMove == Snake_right){
-			lastX = snakeX + currentSnakeLenght;
-			lastY = snakeY;
-		}else if(lastMove == Snake_left){
-			lastX = snakeX - currentSnakeLenght;
-			lastY = snakeY;
-		}
+		
 		
 		
 		//Snake moving constantly left. 
