@@ -46,7 +46,6 @@ int main()
 	}
 	int lastX = 0; 
 	int lastY = 0;
-	//setting a random start position
 
 	printf("x = %d\n", snakeX);
 	printf("y = %d\n", snakeY); 
@@ -73,10 +72,10 @@ int main()
 		lastY = snakeY; 
 
 		while (snakeX == foodX && snakeY == foodY){
-		foodX = randomPlacement(X_AXIS_MAX);
-		foodY = randomPlacement(Y_AXIS_MAX);
-		max7219b_set(foodX, foodY); 
-		max7219b_out();
+			foodX = randomPlacement(X_AXIS_MAX);
+			foodY = randomPlacement(Y_AXIS_MAX);
+			max7219b_set(foodX, foodY); 
+			max7219b_out();
 		}
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
