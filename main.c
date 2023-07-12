@@ -46,11 +46,10 @@ int main()
 	}
 	int lastX = 0; 
 	int lastY = 0;
+	int currentSnakeLenght = 0; 
 
 	printf("x = %d\n", snakeX);
 	printf("y = %d\n", snakeY); 
-	printf("Food x = %d\n", foodX);
-	printf("Food y = %d\n", foodY); 
 	max7219b_set(snakeX, snakeY); 
 	max7219b_set(foodX, foodY); 
 	max7219b_out();
@@ -59,7 +58,7 @@ int main()
 	while (1) {
 		int horz = analogRead(HORZ_PIN);
   		int vert = analogRead(VERT_PIN);
-		max7219b_clr(lastX, lastY);
+		max7219b_clr(lastX+1, lastY);
 		snakeX = joystickXAxis(horz, snakeX); 
 		snakeY = joystickYAxis(vert, snakeY); 
 
@@ -68,15 +67,21 @@ int main()
 		max7219b_set(snakeX, snakeY);
 		max7219b_out();
 		_delay_ms(100);
-		lastX = snakeX;
-		lastY = snakeY; 
-
-		while (snakeX == foodX && snakeY == foodY){
+		
+		if(snakeX == foodX && snakeY == foodY){
+			while (snakeX == foodX && snakeY == foodY){
 			foodX = randomPlacement(X_AXIS_MAX);
 			foodY = randomPlacement(Y_AXIS_MAX);
+			}
 			max7219b_set(foodX, foodY); 
 			max7219b_out();
+			currentSnakeLenght++; 
 		}
+
+		lastX = snakeX + currentSnakeLenght;
+		lastY = snakeY;
+		printf("last x = %d\n", lastX);
+		printf("last y = %d\n", lastY); 
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
 		// 	printf("%d\n", i);
