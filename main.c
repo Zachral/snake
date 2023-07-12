@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "uart.h"
 #include "randomPlacement.h"
+#include "snakeMovement.h"
 
 #define VERT_PIN 0
 #define HORZ_PIN 1
@@ -44,9 +45,11 @@ int main()
 		foodX = randomPlacement(X_AXIS_MAX);
 		foodY = randomPlacement(Y_AXIS_MAX);
 	}
-	int lastX = 0; 
-	int lastY = 0;
+	int lastX = snakeX; 
+	int lastY = snakeY;
 	int currentSnakeLenght = 0; 
+	movement lastMove; 
+
 
 	printf("x = %d\n", snakeX);
 	printf("y = %d\n", snakeY); 
@@ -58,7 +61,7 @@ int main()
 	while (1) {
 		int horz = analogRead(HORZ_PIN);
   		int vert = analogRead(VERT_PIN);
-		max7219b_clr(lastX+1, lastY);
+		max7219b_clr(lastX, lastY);
 		snakeX = joystickXAxis(horz, snakeX); 
 		snakeY = joystickYAxis(vert, snakeY); 
 
@@ -67,7 +70,7 @@ int main()
 		max7219b_set(snakeX, snakeY);
 		max7219b_out();
 		_delay_ms(100);
-		
+		lastMove = snakeDirection(lastX, lastY, snakeX, snakeY, lastMove);
 		if(snakeX == foodX && snakeY == foodY){
 			while (snakeX == foodX && snakeY == foodY){
 			foodX = randomPlacement(X_AXIS_MAX);
@@ -77,11 +80,21 @@ int main()
 			max7219b_out();
 			currentSnakeLenght++; 
 		}
-
-		lastX = snakeX + currentSnakeLenght;
-		lastY = snakeY;
-		printf("last x = %d\n", lastX);
-		printf("last y = %d\n", lastY); 
+		if(lastMove == Snake_down){
+			lastX = snakeX;
+			lastY = snakeY + currentSnakeLenght;
+		}else if(lastMove == Snake_Up){
+			lastX = snakeX;
+			lastY = snakeY - currentSnakeLenght;
+		}else if(lastMove == Snake_right){
+			lastX = snakeX + currentSnakeLenght;
+			lastY = snakeY;
+		}else if(lastMove == Snake_left){
+			lastX = snakeX - currentSnakeLenght;
+			lastY = snakeY;
+		}
+		
+		
 		//Snake moving constantly left. 
 		// for(int i = 0; i < 16;i++){
 		// 	printf("%d\n", i);
